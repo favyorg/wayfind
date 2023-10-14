@@ -1,0 +1,25 @@
+{
+  "name": "@favy/wayfind-react",
+  "license": "MIT",
+  "version": "0.0.1",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsup index.ts --format cjs,esm --dts",
+    "release": "pnpm run build && changeset publish",
+    "lint": "tsc"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.1",
+    "@favy/wayfind": "workspace:*",
+    "@types/react": "^18.2.8",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "type-fest": "^4.4.0"
+  }
+}

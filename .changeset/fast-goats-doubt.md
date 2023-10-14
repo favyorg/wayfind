@@ -1,5 +1,5 @@
 ---
-"my-package": patch
+"wayfind": patch
 ---
 
 Added the add function
