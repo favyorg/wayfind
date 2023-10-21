@@ -9,12 +9,14 @@ type HTMLAnchorProps = React.HTMLProps<HTMLAnchorElement>;
 
 type DefaultProps = HTMLAnchorProps & { href: string };
 
-type ToRouteProps<PATHS extends string, VARS> = Omit<HTMLAnchorProps, "href"> & {
+export type ToRouteProps<PATHS extends string, VARS> = {
   to: PATHS;
   // eslint-disable-next-line @typescript-eslint/ban-types
 } & (IsEmptyObject<VARS> extends false ? { vars: VARS } : {});
 
-export type LinkProps<PATHS extends string, VARS> = ToRouteProps<PATHS, VARS> | DefaultProps;
+export type LinkProps<PATHS extends string, VARS> =
+  | (Omit<HTMLAnchorProps, "href"> & ToRouteProps<PATHS, VARS>)
+  | DefaultProps;
 
 export const makeLink = (config: ConfProps["Link"] = { active: {}, default: {} }) => {
   return <PATHS extends string, VARS>(props: LinkProps<PATHS, VARS>) => {
@@ -60,6 +62,8 @@ export const makeLink = (config: ConfProps["Link"] = { active: {}, default: {} }
         // @ts-ignore
         href={props?.href ?? url}
         onClick={(e) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           if (props?.to) {
             e.preventDefault();
 

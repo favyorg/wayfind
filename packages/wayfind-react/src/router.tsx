@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RouterContext } from "./RouterContext";
-import type { RouterInstance } from "..";
-import { RouteType } from "../RouteType";
+import type { RouterInstance } from "@favy/wayfind";
+import { RouteType } from "@favy/wayfind";
 import { useEffect, useReducer } from "react";
 
 export interface RouteProps<C extends RouteType<any, any>> extends React.PropsWithChildren {
@@ -16,14 +17,17 @@ export const Router = <C extends RouteType<any, any>>(props: RouteProps<C>) => {
   }, []);
 
   const router = props.router?.route;
+
   const renderContent = () => {
     try {
-      return typeof router.route === "function" ? router.route() : router.route.render();
-    } catch(error) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return typeof router.route === "function" ? router.route(router) : router.route?.render?.(router);
+    } catch (error) {
       if (router.errorRender) {
         return router.errorRender({ error });
       }
-      
+
       throw error;
     }
   };

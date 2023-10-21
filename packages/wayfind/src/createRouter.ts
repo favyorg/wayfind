@@ -32,6 +32,7 @@ export const createRouter = <const C extends RouteType<any, any>>(config: C) => 
   window.addEventListener("popstate", handleChange);
   handleChange();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type RemoveType<S extends string> = S extends `${infer L}{${infer N}:${infer T}}${infer R}`
     ? `${L}{${N}}${RemoveType<R>}`
     : S;
@@ -71,6 +72,8 @@ export type RouterInstance<C extends RouteType<any, any>, P extends string, V> =
   route: {
     vars: Record<string, string>;
     route: RouteType<any, any>[keyof RouteType<any, any>];
+    render: () => unknown;
+    errorRender: (args: { error: unknown }) => unknown;
   };
   match(path: string): unknown;
   isActive(path: string): boolean;
@@ -131,7 +134,7 @@ const findRoute = <R>(routes: R, path: string) => {
   }
 };
 
-const isActive = <R>(routes: R, path: string) => {
+export const isActive = <R>(routes: R, path: string) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   for (const r of routes) {
@@ -157,6 +160,7 @@ const flatRoute = <T>(route: RouteType<T, any>, prefix = "", res: Record<string,
 };
 
 export const applyVars = (path: string, vars: any) => {
+  if (!vars) return path;
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return path.replace(/\{(.+?)\}/g, (_, name) => vars[name]);

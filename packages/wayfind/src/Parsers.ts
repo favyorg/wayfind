@@ -22,8 +22,9 @@
 
 export const parsers = {
   number: (value: string) => Number(value),
+  bigint: (value: string) => BigInt(value),
   string: (value: string) => value,
-  // boolean: (value: string) => Boolean(value),
+  boolean: (value: string) => Boolean(value),
 };
 
 export type Parsers = {

@@ -5,20 +5,6 @@ import { createRoot } from "react-dom/client";
 import { useIsActive, useNavigate, Link } from "./routerComponent";
 import { router } from "./router";
 
-type A = {
-  to: `/users/${number}/` | `/posts/` | "/";
-};
-
-const B: React.FC<A> = () => {};
-
-const Wtf = () => {
-  return (
-    <div>
-      <B to={"/posts/"} />
-    </div>
-  );
-};
-
 const Head = () => {
   const isActiveRoot = useIsActive("/");
   const go = useNavigate();
@@ -26,7 +12,18 @@ const Head = () => {
   return (
     <div className='w-full bg-blue-100 p-5 text-2xl flex gap-20 text-gray-800 items-center'>
       useIsActive("/") = {isActiveRoot.toString()}{" "}
-      <button className='bg-blue-400 rounded-md px-4 py-2 shadow-md' onClick={() => go("/")}>
+      <button
+        className='bg-blue-400 rounded-md px-4 py-2 shadow-md'
+        onClick={() =>
+          go({
+            to: "/users/{id}?page={p}",
+            vars: {
+              id: 42,
+              p: 2,
+            },
+          })
+        }
+      >
         go to "/"
       </button>
     </div>
@@ -39,15 +36,12 @@ function App() {
       <Head></Head>
       <div className='p-2 px-4 text-xl'>
         <div className='flex gap-4'>
-          <Link to='/a'>/</Link>
+          <Link to='/'>/</Link>
           <Link to='/posts'>/posts</Link>
           <Link to='/users'>/users</Link>
           <Link to='/users/{id}?page={p}' vars={{ id: 42, p: 2 }}>
             /users/42
           </Link>
-          {/* <Link to='/users/{id}?page={p}' vars={{ id: 42, p: 2 }}>
-            /users/42
-          </Link> */}
           <Link to='/logs/{page}' vars={{ page: 10 }}>
             /logs/10
           </Link>

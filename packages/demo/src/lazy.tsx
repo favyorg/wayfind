@@ -6,7 +6,7 @@ const UserIdComponent: React.FC = () => {
 
   return (
     <div className='bg-green-200'>
-      user: {vars.id} / ${vars.p}
+      user: {vars.id} / page: {vars.p}
     </div>
   );
 };

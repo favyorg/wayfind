@@ -1,6 +1,6 @@
 // type ReplaceVars<T extends string> = T extends `${infer L}{${string}}${infer R}` ? `${L}${number}${ReplaceVars<R>}` : T;
 
-type RouteRender<RET> = (params: string) => RET;
+type RouteRender<RET> = (params: unknown) => RET;
 
 type RouteParams<RET, ID extends string> = {
   render: RouteRender<RET>;

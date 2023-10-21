@@ -24,11 +24,17 @@ const root = route({
     "/posts": () => (
       <div>
         redirecting
-        <Redirect to='/' />
+        <Redirect
+          to='/users/{id}?page={p}'
+          vars={{
+            id: 42,
+            p: 2,
+          }}
+        />
       </div>
     ),
-    "/logs/{page}": () => {
-      throw "random error " + Date.now();
+    "/logs/{page}": (ctx) => {
+      throw `random error ${ctx.page} ` + Date.now();
     },
     error: ({ error }) => <div style={{ color: "red" }}>Throw error: {`${error}`}</div>,
     render: () => <div>render root</div>,

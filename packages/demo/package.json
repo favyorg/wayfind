@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@favy/wayfind": "workspace:*",
-    "@favy/wayfind-react": "workspace:*",
+    "@favy/wayfind": "0.0.2",
+    "@favy/wayfind-react": "0.0.1",
     "scheduler": "^0.23.0",
     "type-fest": "^4.4.0"
   },
